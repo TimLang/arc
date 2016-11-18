@@ -41,7 +41,7 @@ defmodule Arc.Mixfile do
 
   defp deps do
     [
-      {:httpoison, "~> 0.8"}, # Required for downloading remote files
+      {:httpoison, github: "edgurgel/httpoison", tag: "v0.8.2"}, # Required for downloading remote files
       {:ex_aws, "~> 1.0.0-rc.3", optional: true},
       {:mock, "~> 0.1.1", only: :test},
       {:ex_doc, "~> 0.14", only: :dev},
