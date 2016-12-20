@@ -15,7 +15,7 @@ defmodule Arc.File do
   # Given a remote file
   def new(remote_path = "http" <> _) do
     case save_file(remote_path) do
-      {:ok, local_path} -> %Arc.File{path: local_path, file_name: Path.basename(remote_path)}
+      {:ok, local_path} -> %Arc.File{path: local_path, file_name: generate_remote_filename(remote_path)}
       :error -> {:error, :invalid_file_path}
     end
   end
@@ -79,4 +79,13 @@ defmodule Arc.File do
       other -> {:error, :invalid_file_path}
     end
   end
+  
+  defp generate_remote_filename remote_path do
+    extension = Path.extname(remote_path)
+
+    :crypto.rand_bytes(20)
+    |> Base.encode32()
+    |> Kernel.<>(extension)
+  end
+
 end
