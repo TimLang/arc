@@ -81,11 +81,11 @@ defmodule Arc.File do
   end
   
   defp generate_remote_filename remote_path do
-    extension = Path.extname(remote_path)
+    #extension = Path.extname(remote_path)
 
     :crypto.rand_bytes(20)
     |> Base.encode32()
-    |> Kernel.<>(extension)
+    #|> Kernel.<>(extension)
   end
 
 end
