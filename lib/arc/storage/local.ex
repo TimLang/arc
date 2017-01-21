@@ -4,13 +4,17 @@ defmodule Arc.Storage.Local do
     path = Path.join(destination_dir, file.file_name)
     path |> Path.dirname() |> File.mkdir_p!()
 
-    if binary = file.binary do
-      File.write(path, binary)
-    else
-      File.copy(file.path, path)
+    result = if binary = file.binary do
+               File.write(path, binary)
+             else
+               File.copy(file.path, path)
+             end
+    case result do
+      {:ok, file} ->
+        {:ok, file.file_name}
+      {:error, reason} ->
+        {:error, reason}
     end
-
-    {:ok, file.file_name}
   end
 
   def url(definition, version, file_and_scope, _options \\ []) do
