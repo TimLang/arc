@@ -10,7 +10,7 @@ defmodule Arc.Storage.Local do
                File.copy(file.path, path)
              end
     case result do
-      {:ok, file} ->
+      {:ok, _} ->
         {:ok, file.file_name}
       {:error, reason} ->
         {:error, reason}
